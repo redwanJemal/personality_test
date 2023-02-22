@@ -3,7 +3,6 @@ import Button from '../components/common/Button'
 import QuestionList from '../components/questions/List'
 
 const Questions = () => {
-
   const handleSubmit = () => {
 		console.log('submitted')
 	}
