@@ -1,8 +1,11 @@
 import React from 'react'
+import QuestionList from '../components/questions/List'
 
 const Questions = () => {
   return (
-    <div>Questions</div>
+    <div>
+      <QuestionList />
+    </div>
   )
 }
 
