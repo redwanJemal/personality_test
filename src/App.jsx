@@ -1,13 +1,17 @@
 import { useState } from 'react'
+import {Routes, Route} from 'react-router-dom'
+import Landing from './pages/Landing'
+import Questions from './pages/Questions'
+import ResultScreen from './pages/Result'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/test" element={<Questions />} />
+        <Route path="/result" element={<ResultScreen />} />
+      </Routes>
     </div>
   )
 }
