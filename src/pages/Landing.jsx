@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 
 const Landing = () => {
   return (
-    <div className="bg-gray-100 h-screen flex flex-col justify-center items-center">
+    <div className="bg-gray-100 h-screen flex flex-col justify-center items-center" >
+      <img className='h-64' src="https://ychef.files.bbci.co.uk/1376x774/p09hgtd4.jpg" alt="" />
       <h1 className="text-4xl font-bold text-center mb-8">Discover Your Personality Type</h1>
       <p className="text-lg text-center mb-8">
         Take our personality test to gain insight into your personality traits and preferences.
