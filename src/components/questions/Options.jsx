@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {toOptionChar} from '../../helper/toOptionChar'
 
 const AnswerOptions = ({options}) => {
   const [selected, setSelected] = useState(null)
@@ -11,7 +12,10 @@ const AnswerOptions = ({options}) => {
     <div>
       {
       options.map((option, index) => (
-        <p className='pl-4 cursor-pointer' onClick={() => handleOptionSelected(index)} key={index}>{option.text}</p>
+        <div className='flex cursor-pointer'  onClick={() => handleOptionSelected(index)}>
+          <p>{ toOptionChar(index)}</p>
+          <p className='pl-4 cursor-pointer'  key={index}>{option.text}</p>
+        </div>
       ))}
     </div>
   )
