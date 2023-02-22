@@ -5,17 +5,29 @@ const AnswerOptions = ({options}) => {
   const [selected, setSelected] = useState(null)
 
   const handleOptionSelected = (index) => {
-    console.log('index', index)
+    if (selected === index) {
+      setSelected(null);
+    } else {
+      setSelected(index);
+    }
   }
 
   return (
-    <div>
+    <div className='flex flex-col justify-start items-start'>
       {
       options.map((option, index) => (
-        <div className='flex cursor-pointer'  onClick={() => handleOptionSelected(index)}>
-          <p>{ toOptionChar(index)}</p>
-          <p className='pl-4 cursor-pointer'  key={index}>{option.text}</p>
-        </div>
+        <div
+        key={`op ${index}`}
+        className={`py-2 px-4 mb-2 cursor-pointer ${
+          selected === index ? 'border border-red-800 bg-white text-black' : 'bg-white text-gray-700'
+        }`}
+        onClick={() => handleOptionSelected(index)}
+      >
+       <div className='flex justify-center'>
+         <span className={`px-3 py-1 m-auto ${selected === index? 'bg-red-500 text-white':'bg-gray-200'}`}>{ toOptionChar(index)}</span>
+         <span className='ml-4 m-auto'>{option.text}</span>
+       </div>
+      </div>
       ))}
     </div>
   )
