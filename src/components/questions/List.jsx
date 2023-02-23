@@ -4,28 +4,28 @@ import QuestionItem from './Item';
 import Button from '../common/Button';
 
 const QuestionList= () => {
-	const [questions, setQuestions] = useState(null)
-  const data = useTestStore((state) => state.data)
+  const questions = useTestStore((state) => state.data)
   const loading = useTestStore((state) => state.loading)
 	const getAllQuestions = useTestStore((state) => state.getAllQuestions)
 
   const loadQuestions = () => {
     getAllQuestions();
-    if(data && data.items) {
-			setQuestions(data.items)
-		}
   }
+  
   useEffect(() => {
 		loadQuestions()
-  }, [questions])
+  }, [])
   
-  if(loading) return <div>Loading...</div>
+  if(loading) return 
+  <div className='px-4 h-[32rem] flex flex-col justify-center items-center'>
+    Loading...
+  </div>
 
   return (
     <div>
       {
         !loading && !questions && 
-        <div className='px-4'>
+        <div className='px-4 h-[32rem] flex flex-col justify-center items-center'>
             <div>
               No questions found
             </div>
@@ -34,7 +34,7 @@ const QuestionList= () => {
         
       }
       {
-       questions && questions.map((question, index) => (
+       questions && questions.items.map((question, index) => (
         <div  className='mb-4 px-4' key={index}>
           <QuestionItem  key={index} item={question} />
         </div>

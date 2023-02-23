@@ -1,20 +1,29 @@
 import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom';
 import Button from '../components/common/Button'
 import QuestionList from '../components/questions/List'
 import useTestStore from '../store/testStore'
 
 const Questions = () => {
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(null)
+  const loading = useTestStore((state) => state.loading)
   const answer = useTestStore((state) => state.answer)
   const questions = useTestStore((state) => state.data)
-  const handleSubmit = () => {
+  const postAnswer = useTestStore((state) => state.postAnswer)
+  const result = useTestStore((state) => state.result)
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
     if(questions && questions.items.length == Object.keys(answer).length) {
       setAllQuestionsAnswered(true)
-      console.log('all questions answered')
+      await postAnswer();
+      if(!loading && result){
+        navigate('/result', {replace: true})
+      }
     }
     else{
       setAllQuestionsAnswered(false)
-      console.log('not all questions answered')
     }
 	}
 
@@ -34,9 +43,12 @@ const Questions = () => {
           <h2 className='p-2 text-2xl text-red-500'>Please Answer All Questions!!</h2>
         }
       </div>
-      <div className='p-4 mt-4'>
-				<Button text={'Submit'} onClick={handleSubmit} />
+      {
+        questions && questions.items.length > 0 && 
+        <div className='p-4 mt-4'>
+				<Button loading={loading} text={'Submit'} onClick={handleSubmit} />
 			</div>
+      }
     </div>
   )
 }

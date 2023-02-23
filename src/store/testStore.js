@@ -4,13 +4,16 @@ import axios from 'axios'
 const useTestStore = create((set) => ({
 	data: null,
   answer: {},
+	result: null,
+	error: null,
+	loading: false,
 	getAllQuestions: async () => {
     set({ loading: true });
 		try {
 			const response = await axios.get('http://localhost:3301/api/sample')
-			set({ data: response.data, loading: false })
+			set({ data: response.data, loading: false, error: null })
 		} catch (error) {
-			set({ error: error.message, loading: false })
+			set({ error: error.message, loading: false, data: null })
 		}
 	},
   addAnswer: (answer) => {
@@ -20,9 +23,10 @@ const useTestStore = create((set) => ({
     set({ loading: true });
     try {
 			const response = await axios.post('http://localhost:3301/api/sample',useTestStore.getState().answer)
-			set({ data: response.data, loading: false })
+			console.log(response.data)
+			set({ result: response.data, answer: {}, loading: false, error: null })
 		} catch (error) {
-			set({ error: error.message, loading: false })
+			set({ error: error.message, loading: false, result: null })
 		}
   },
 }))
