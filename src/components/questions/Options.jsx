@@ -1,13 +1,19 @@
 import React, {useState} from 'react'
 import {toOptionChar} from '../../helper/toOptionChar'
+import useTestStore from '../../store/testStore'
 
-const AnswerOptions = ({options}) => {
+const AnswerOptions = ({questionNumber, options}) => {
   const [selected, setSelected] = useState(null)
+  const answer = useTestStore((state) => state.answer)
+  const addAnswer = useTestStore((state) => state.addAnswer)
 
   const handleOptionSelected = (index) => {
     if (selected === index) {
+      delete answer[questionNumber]
       setSelected(null);
     } else {
+      answer[questionNumber] = options[index]
+      addAnswer(answer)
       setSelected(index);
     }
   }

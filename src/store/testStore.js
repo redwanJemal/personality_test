@@ -13,6 +13,18 @@ const useTestStore = create((set) => ({
 			set({ error: error.message, loading: false })
 		}
 	},
+  addAnswer: (answer) => {
+    set({ answer: answer })
+  },
+  postAnswer: async () => {
+    set({ loading: true });
+    try {
+			const response = await axios.post('http://localhost:3301/api/sample',useTestStore.getState().answer)
+			set({ data: response.data, loading: false })
+		} catch (error) {
+			set({ error: error.message, loading: false })
+		}
+  },
 }))
 
 export default useTestStore
