@@ -7,6 +7,7 @@ const QuestionList= () => {
   const questions = useTestStore((state) => state.data)
   const loading = useTestStore((state) => state.loading)
 	const getAllQuestions = useTestStore((state) => state.getAllQuestions)
+  const error  = useTestStore((state) => state.error)
 
   const loadQuestions = () => {
     getAllQuestions();
@@ -16,11 +17,27 @@ const QuestionList= () => {
 		loadQuestions()
   }, [])
   
-  if(loading) return 
-  <div className='px-4 h-[32rem] flex flex-col justify-center items-center'>
-    Loading...
-  </div>
-
+  if(loading){
+    return (
+      <div className='px-4 h-[32rem] flex flex-col justify-center items-center'>
+        <div>
+          Loading ...
+        </div>
+      </div>
+    )
+  }
+  if(error){
+    return (
+      <div className='px-4 h-[32rem] flex flex-col justify-center items-center'>
+        <div>
+          Error Loading Questions
+        </div>
+        <div className='mt-4'>
+        <Button text={'Try again'} onClick={loadQuestions} />
+        </div>
+      </div>
+    )
+  }
   return (
     <div>
       {
