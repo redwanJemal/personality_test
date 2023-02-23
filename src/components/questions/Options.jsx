@@ -14,6 +14,7 @@ const AnswerOptions = ({questionNumber, options}) => {
     } else {
       answer[questionNumber] = options[index]
       addAnswer(answer)
+      console.log(answer)
       setSelected(index);
     }
   }
@@ -31,7 +32,7 @@ const AnswerOptions = ({questionNumber, options}) => {
       >
        <div className='flex justify-center'>
          <span className={`px-3 py-1 m-auto ${selected === index? 'bg-red-500 text-white':'bg-gray-200'}`}>{ toOptionChar(index)}</span>
-         <span className='ml-4 m-auto'>{option.text}</span>
+         <span className='ml-4 m-auto'>{option.option}</span>
        </div>
       </div>
       ))}
