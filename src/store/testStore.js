@@ -7,6 +7,7 @@ const useTestStore = create((set) => ({
 	result: null,
 	error: null,
 	loading: false,
+	resultLoading: false,
 	getAllQuestions: async () => {
     set({ loading: true });
 		try {
@@ -20,13 +21,13 @@ const useTestStore = create((set) => ({
     set({ answer: answer })
   },
   postAnswer: async () => {
-    set({ loading: true });
+		set({ resultLoading: true })
     try {
 			const response = await axios.post('http://localhost:3301/api/sample',useTestStore.getState().answer)
 			console.log(response.data)
-			set({ result: response.data, answer: {}, loading: false, error: null })
+			set({ result: response.data, resultLoading: false, answer: {}, error: null })
 		} catch (error) {
-			set({ error: error.message, loading: false, result: null })
+			set({ error: error.message,  resultLoading: false, result: null })
 		}
   },
 }))

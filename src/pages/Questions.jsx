@@ -6,11 +6,10 @@ import useTestStore from '../store/testStore'
 
 const Questions = () => {
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(null)
-  const loading = useTestStore((state) => state.loading)
+  const loading = useTestStore((state) => state.resultLoading)
   const answer = useTestStore((state) => state.answer)
   const questions = useTestStore((state) => state.data)
   const postAnswer = useTestStore((state) => state.postAnswer)
-  const result = useTestStore((state) => state.result)
 
   const navigate = useNavigate();
 
@@ -18,9 +17,7 @@ const Questions = () => {
     if(questions && questions.items.length == Object.keys(answer).length) {
       setAllQuestionsAnswered(true)
       await postAnswer();
-      if(!loading && result){
-        navigate('/result', {replace: true})
-      }
+      navigate('/result', {replace: true})
     }
     else{
       setAllQuestionsAnswered(false)
